@@ -1,0 +1,26 @@
+# Custom resource definitions for backup schedules
+apiVersion: velero.io/v1
+kind: Schedule
+metadata:
+  name: daily-full-backup
+  namespace: velero
+spec:
+  schedule: "0 2 * * *"  # 2 AM daily
+  template:
+    includedNamespaces:
+    - '*'  # All namespaces
+    ttl: 720h  # 30 days
+---
+apiVersion: velero.io/v1
+kind: Schedule
+metadata:
+  name: hourly-critical
+  namespace: velero
+spec:
+  schedule: "0 * * * *"  # Hourly
+  template:
+    includedNamespaces:
+    - argocd
+    - nextcloud
+    - velero
+    ttl: 168h  # 7 days
