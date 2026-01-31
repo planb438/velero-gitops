@@ -6,25 +6,27 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://charts.bitnami.com/bitnami
+    repoURL: https://charts.min.io/
     chart: minio
-    targetRevision: 12.6.4
+    targetRevision: 5.0.5
     helm:
       parameters:
       - name: service.type
         value: NodePort
-      - name: service.nodePorts.api
+      - name: service.apiPort
         value: "30900"
-      - name: service.nodePorts.console
+      - name: service.consolePort
         value: "30901"
-      - name: auth.rootUser
+      - name: rootUser
         value: minioadmin
-      - name: auth.rootPassword
+      - name: rootPassword
         value: minioadmin123
       - name: persistence.enabled
         value: "true"
       - name: persistence.size
         value: 50Gi
+      - name: mode
+        value: standalone
   destination:
     server: https://kubernetes.default.svc
     namespace: velero
